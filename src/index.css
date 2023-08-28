@@ -1,0 +1,36 @@
+
+@tailwind components;
+@tailwind utilities;
+
+body {
+  margin: 0;
+  padding: 0;
+}
+/* 
+.center {
+  @apply flex justify-center items-center;
+}
+
+.page {
+  @apply px-4 md:px-10 py-4 md:py-10
+}
+
+.pattern{
+  @apply bg-[url('/app/pattern.svg')] 
+}
+
+.page-section{
+  @apply bg-white p-8
+}
+
+.tap-medium{
+  @apply px-4 py-3 rounded-t-xl capitalize
+}
+
+.countour-filled{
+  @apply bg-filled px-5 p-2 rounded-md
+}
+
+.container-small{
+  @apply text-lg font-semibold py-[11px] px-4
+} */
