@@ -8,7 +8,7 @@ const { checkUniqueFields, validateEmail, validateName, validatePassword,authent
 
 router.post('/register', validateName, validateEmail, validatePassword, checkUniqueFields, authController.register);
 
-router.post('/login',validateName, validateEmail, validatePassword, authController.login);
+router.post('/login', validateEmail, validatePassword, authController.login);
 
 router.post('/logout', authController.logout);
 

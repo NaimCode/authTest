@@ -5,6 +5,7 @@ import { sessionMiddleware } from './Utils/session';
 import helmet from 'helmet';
 import cookieParser from 'cookie-parser';
 import hpp from 'hpp';
+import cors from "cors"
 
 
 dotenv.config();
@@ -14,6 +15,14 @@ const port = process.env.PORT || 3000;
 app.use(express.json());
 app.use(helmet());
 app.use(hpp());
+
+
+const corsOptions = {
+    origin: ["http://localhost:5173"],
+    optionsSuccessStatus: 200 
+}
+
+app.use(cors(corsOptions))
 
 app.use(express.json());
 

@@ -3,14 +3,19 @@ import HomePage from "../pages/homePage";
 import AuthPage from "../pages/auth";
 import LoginPage from "../pages/auth/LoginPage";
 import RegisterPage from "../pages/auth/RegisterPage";
-const APP_ROUTES = createBrowserRouter([
+import ProfilePage from "../pages/profilePage";
+const APP_ROUTES = (token: string|null) => createBrowserRouter([
   {
     path: "/",
     element: <HomePage />,
   },
   {
+    path: "/profile",
+    element: !token ? <Navigate to={"/auth"} /> : <ProfilePage />
+  },
+  {
     path: "/auth",
-    element: <AuthPage />,
+    element: token ? <Navigate to={"/profile"} /> : <AuthPage />,
     children: [
       {
         index: true,

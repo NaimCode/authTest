@@ -17,13 +17,12 @@ function AuthPage() {
                 className="rounded-3xl w-[450px] shadow-xl flex flex-col gap-4 items-center my-4 p-10 text-sm"
             >
 
-         
                 <AnimatePresence>
                     <Outlet />
                 </AnimatePresence>
             </motion.div>
             <div className="text-sm gap-2 flex">
-                <span>Copyright @orderbell 2023 </span>│
+                <span>Copyright @Naim 2023 </span>│
                 <a className="text-blue-500 hover:underline cursor-pointer">
                     Privacy Policy
                 </a>

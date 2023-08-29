@@ -25,13 +25,9 @@ const register = async (req: Request, res: Response) => {
       },
       process.env.JWT_SECRET as string
     );
-    res.cookie("token", token, {
-      httpOnly: true, // This prevents JavaScript on the client side from accessing the cookie
-      secure: true, // This ensures the cookie is only sent over HTTPS
-    });
 
     res.status(200).json({
-      user,
+     
       token,
     });
   } catch (error) {
@@ -40,27 +36,18 @@ const register = async (req: Request, res: Response) => {
 };
 
 const logout = (req: Request, res: Response) => {
-  req.session.destroy(() => {
-    res.status(200).send("Logged out");
-  });
+  res.status(200).json({ message: 'Logout successful' });
 };
 
 const login = async (req: Request, res: Response) => {
-  const { email_username, password } = req.body;
+  const { email, password } = req.body;
 
   try {
-    const user = await prisma.user.findFirst({
+    const user = await prisma.user.findUnique({
       where: {
-        OR: [
-          {
-            email: email_username,
-          },
-          {
-            name: email_username,
-          },
-        ],
+        email,
       },
-    });
+  });
 
     if (!user) {
       return res.status(404).send("User not found");
@@ -81,14 +68,8 @@ const login = async (req: Request, res: Response) => {
       process.env.JWT_SECRET as string
     );
 
-    res.cookie('token', token, {
-      httpOnly: true,
-      secure: true,
-    });
-
     res.status(200).json({
-      user,
-      token,
+    token,
     });
 
   } catch (error) {

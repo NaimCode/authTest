@@ -4,7 +4,7 @@ import {TextInput, PasswordInput, Button} from "@mantine/core";
 import { NavLink } from "react-router-dom";
 
 function LoginPage() {
-    const { form, onSubmit } = useLogin();
+    const { onSubmit,emailProps,passwordProps,isLoading } = useLogin();
     return (
         <motion.form
           onSubmit={onSubmit}
@@ -18,17 +18,16 @@ function LoginPage() {
             withAsterisk
             label="Email"
             placeholder="your@email.com"
-            {...form.getInputProps("email")}
-            // className="w-full"
+            {...emailProps}
           />
           <PasswordInput
             placeholder="Password"
             label="Password"
             withAsterisk
-            {...form.getInputProps("password")}
+            {...passwordProps}
           />
           <div className="w-full py-4">
-            <Button  type="submit" className="w-full">
+            <Button loading={isLoading} type="submit" className="w-full">
               Login
             </Button>
           </div>
