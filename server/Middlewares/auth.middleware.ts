@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import jwt  from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
 
 import { NextFunction, Request, RequestHandler, Response } from "express";
 import prisma from "../Utils/prisma";
@@ -108,10 +108,70 @@ const authenticateJWT: RequestHandler = (req, res, next) => {
     });
 };
 
-export default  {
+const userExists: RequestHandler = async (req, res, next) => {
+    const { email } = req.body;
+
+    try {
+        const user = await prisma.user.findUnique({
+            where: {
+                email
+            },
+        });
+
+        if (!user) {
+            return res.status(404).json({ message: 'Email not associated with any account' });
+        }
+
+        next();
+    } catch (error) {
+        res.status(500).send("Error while checking user existence")
+    }
+}
+
+
+const validateTokenResetPassword: RequestHandler = async (req, res, next) => {
+    const tokenId = req.body.token;
+
+    if (!tokenId) {
+        return res.status(400).json({ message: 'Token is required' });
+    }
+    try {
+        const token = await (prisma as any).token.findUnique({
+            where: {
+                id: tokenId,
+                type: "RESET_PASSWORD"
+
+            },
+            include: {
+                user: true
+            }
+
+        });
+
+        if (!token) {
+            return res.status(404).json({ message: 'Token not found' });
+        }
+
+        if (token.expiredAt < new Date()) {
+            return res.status(400).json({ message: 'Token expired' });
+        }
+
+        (req as any).user = token.user;
+
+        next();
+
+    } catch (error) {
+        console.log('error', error)
+        res.status(500).send("Error while validating token")
+    }
+}
+
+export default {
     validateName,
     validateEmail,
     validatePassword,
     checkUniqueFields,
-    authenticateJWT
+    authenticateJWT,
+    userExists,
+    validateTokenResetPassword
 };

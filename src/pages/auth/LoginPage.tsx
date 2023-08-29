@@ -4,7 +4,7 @@ import {TextInput, PasswordInput, Button} from "@mantine/core";
 import { NavLink } from "react-router-dom";
 
 function LoginPage() {
-    const { onSubmit,emailProps,passwordProps,isLoading } = useLogin();
+    const { onSubmit,emailProps,passwordProps,isLoading, onForgetPassword } = useLogin();
     return (
         <motion.form
           onSubmit={onSubmit}
@@ -26,6 +26,13 @@ function LoginPage() {
             withAsterisk
             {...passwordProps}
           />
+       
+           <div className="flex flex-row justify-end">
+           <span onClick={onForgetPassword} className="text-blue-500 hover:underline self-end pt-2 cursor-pointer">
+                Forgot Password?
+            </span>
+           </div>
+         
           <div className="w-full py-4">
             <Button loading={isLoading} type="submit" className="w-full">
               Login

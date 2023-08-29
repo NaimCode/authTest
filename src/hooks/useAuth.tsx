@@ -1,7 +1,10 @@
+import { modals } from '@mantine/modals';
 import { notifications } from '@mantine/notifications';
 import { useForm } from '@mantine/form';
 import useAuthStore from '../store/auth';
 import { useState } from 'react';
+import ForgetPasswordDialog from '../components/forgetPasswordDialog';
+import { useNavigate } from 'react-router-dom';
 
 export interface TLogin {
     email: string,
@@ -14,7 +17,7 @@ export interface TRegister extends TLogin {
 }
 
 
-const validator = {
+export const validator = {
     email: (value: string) => {
         if (!value) {
             return 'Email is required'
@@ -67,6 +70,7 @@ const validator = {
 export const useLogin = () => {
     const login = useAuthStore(store => store.login)
     const [isLoading, setIsLoading] = useState(false)
+    const navigate=useNavigate()
     const form = useForm<TLogin>({
         initialValues: {
             email: '',
@@ -80,7 +84,7 @@ export const useLogin = () => {
     });
 
     const onSubmit = form.onSubmit((values: TLogin) => {
-        console.log('values', values)
+      
         setIsLoading(true)
         login(values).
             then(() => notifications.show({
@@ -90,6 +94,7 @@ export const useLogin = () => {
                 autoClose: 5000,
             })).
             catch((err) => {
+             
                 notifications.show({
                     title: 'Error',
                     message: err.response.data,
@@ -102,8 +107,21 @@ export const useLogin = () => {
 
     const emailProps = form.getInputProps('email')
     const passwordProps = form.getInputProps('password')
+  
+  
+    const onForgetPassword=()=>{
+        modals.open({
+            title: 'Forget password',
+            centered:true,
+            children:<ForgetPasswordDialog callback={()=>{
+                modals.closeAll()
+                navigate('/email-sent')
+            }}/>
+        })
+    }
 
-    return { onSubmit, isLoading, emailProps, passwordProps }
+
+    return { onSubmit, isLoading, emailProps, passwordProps,onForgetPassword }
 }
 
 export const useRegister = () => {

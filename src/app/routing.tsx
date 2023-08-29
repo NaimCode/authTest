@@ -4,7 +4,9 @@ import AuthPage from "../pages/auth";
 import LoginPage from "../pages/auth/LoginPage";
 import RegisterPage from "../pages/auth/RegisterPage";
 import ProfilePage from "../pages/profilePage";
-const APP_ROUTES = (token: string|null) => createBrowserRouter([
+import EmailSent from "../pages/static/emailSent";
+import ResetPasswordPage from "../pages/resetPasswordPage";
+const APP_ROUTES = (token: string | null) => createBrowserRouter([
   {
     path: "/",
     element: <HomePage />,
@@ -31,6 +33,14 @@ const APP_ROUTES = (token: string|null) => createBrowserRouter([
       },
     ],
   },
+  {
+    path: "/email-sent",
+    element: <EmailSent />,
+  },
+  {
+    path: "/reset-password/:token",
+    element: token ? <Navigate to={"/"} /> : <ResetPasswordPage />,
+  }
 ]);
 
 export default APP_ROUTES;

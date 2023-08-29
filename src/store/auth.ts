@@ -13,7 +13,9 @@ type AuthStore = {
     login: (values: TLogin) => Promise<void>;
     register: (values: TRegister) => Promise<void>;
     logout: () => Promise<void>;
-    me: () => Promise<User | undefined>
+    me: () => Promise<User | undefined>,
+    forgetPassword: (values: { email: string }) => Promise<void>,
+    resetPassword: (values: { token?: string, password: string }) => Promise<void>
 };
 
 const useAuthStore = create<AuthStore>()(
@@ -55,7 +57,10 @@ const useAuthStore = create<AuthStore>()(
                             break;
                     }
                 })
-            }
+            },
+            forgetPassword: async (values: { email: string }) =>api.post("/auth/forget-password", values),
+            resetPassword: async (values: { token?: string, password: string }) =>api.post("/auth/reset-password", values),
+            
 
         }),
         {

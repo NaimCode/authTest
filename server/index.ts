@@ -18,7 +18,7 @@ app.use(hpp());
 
 
 const corsOptions = {
-    origin: ["http://localhost:5173"],
+    origin: [process.env.CLIENT_URL as string],
     optionsSuccessStatus: 200 
 }
 
@@ -29,15 +29,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(sessionMiddleware);
 
-declare module 'express-session' {
-    interface Session {
-        user: {
-            id: number;
-            email: string;
-            name: string;
-        };
-    }
-}
+
 app.listen(port, () => {
   console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
 });
