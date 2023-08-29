@@ -1,5 +1,5 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
-import HomePage from "../pages/homePage";
+
 import AuthPage from "../pages/auth";
 import LoginPage from "../pages/auth/LoginPage";
 import RegisterPage from "../pages/auth/RegisterPage";
@@ -9,7 +9,7 @@ import ResetPasswordPage from "../pages/resetPasswordPage";
 const APP_ROUTES = (token: string | null) => createBrowserRouter([
   {
     path: "/",
-    element: <HomePage />,
+    element: <Navigate to={"/profile"} />,
   },
   {
     path: "/profile",
