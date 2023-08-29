@@ -47,6 +47,23 @@
    VITE_API_URL= #dev http://localhost:3000
    ```
 
+## Setup Database (MySQL) with Prisma and PlanetScale
+
+1. Create a new database on PlanetScale and copy the connection string into the `.env` file. [PlanetScale](https://planetscale.com/)
+
+2. Push the schema to PlanetScale
+
+   ```sh
+   cd server
+   pnpm prisma db push
+   ```
+
+3. Generate type definitions
+
+   ```sh
+   pnpm prisma generate
+   ```
+
 ## Usage
 
 1. Start the server
