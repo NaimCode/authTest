@@ -8,6 +8,12 @@
 - [Vite](https://vitejs.dev/)
 - [MySQL](https://www.mysql.com/)
 - [PNPM](https://pnpm.js.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Express](https://expressjs.com/)
+- [React](https://reactjs.org/)
+- [Prisma](https://www.prisma.io/)
+- [PlanetScale](https://planetscale.com/)
 
 ### Installation
 
@@ -62,6 +68,12 @@
 
    ```sh
    pnpm prisma generate
+   ```
+
+4. To view the database
+
+   ```sh
+   pnpm prisma studio
    ```
 
 ## Usage
